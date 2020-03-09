@@ -1,0 +1,77 @@
+#include "vex.h"
+
+using namespace vex;
+void blue_rectangle(){
+    //task::sleep(500);
+    //lift tray and arm to release extension
+
+    //lift tray and arm to release extension
+    Arm.setStopping(brake);
+    
+    //
+    // arm_level = 2;
+    // task::sleep(2000);
+
+    Arm.setVelocity(60, pct);
+    Arm.rotateTo(60,deg,false);
+    Tray.setVelocity(50, pct);
+    Tray.rotateTo(150,degrees, true);
+    wait(0.5, seconds);
+    Tray.setVelocity(100, pct);
+    Tray.rotateTo(0,degrees, true);
+    //arm_level = 1;
+    Arm.setVelocity(100, pct);
+    Arm.rotateTo(30,deg,true);
+    Intake.setVelocity(100, pct);
+    Intake.spin(fwd);
+    //put down tray and arm
+    //move forward at half power
+    Drivetrain.setDriveVelocity(20, pct );
+    Drivetrain.setTurnVelocity(20, pct);
+    Drivetrain.turnToHeading(0, rotationUnits::deg,true);
+    Drivetrain.driveFor( 500, mm ,true);
+
+    //block beside tower
+    Drivetrain.turnToHeading(280,rotationUnits::deg,true);
+    Drivetrain.driveFor(200,mm,true);
+   
+
+    //pick up block beside goal zone
+    Drivetrain.turnToHeading(85,rotationUnits::deg,true);
+    Drivetrain.setDriveVelocity(60,pct);
+    Drivetrain.driveFor(750,mm,true);
+
+    //turn to goal zone and stack
+  
+    Drivetrain.turnToHeading(118,rotationUnits::deg,true);
+
+  //move forward
+    Arm.rotateTo(0,deg,false);
+    Intake.setVelocity(10, pct);
+    Intake.spin(reverse);
+    Drivetrain.setDriveVelocity(15, pct );
+    Drivetrain.driveFor( 310, mm ,false);
+
+    //push tray
+    Intake.setVelocity(27, pct);
+    Intake.spin(reverse);
+    Tray.setVelocity(60, pct);
+    Tray.rotateTo(850,degrees, true);
+    
+    //move forward
+    Drivetrain.setDriveVelocity(15, pct );
+    Drivetrain.driveFor( 20, mm ,false);
+    task::sleep(500);
+    
+    //put tray
+    Tray.setVelocity(80, pct);
+    Tray.rotateTo(0,degrees, false);
+    
+    //move back
+    Drivetrain.setDriveVelocity(60, pct );
+    Drivetrain.driveFor( -350, mm );
+    Intake.stop();
+    Intake.setVelocity(100, pct);
+    
+
+}
