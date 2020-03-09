@@ -1,0 +1,198 @@
+#include "vex.h"
+
+using namespace vex;
+
+void betterAuto60(){
+   //task::sleep(500);
+    //lift tray and arm to release extension
+    //calibration only for testing
+    //vexcodeInit();
+    //lift tray and arm to release extension
+    Arm.setStopping(brake);
+    Intake.setVelocity(100, pct);
+    Intake.spin(reverse);
+    //
+    // arm_level = 2;
+    // task::sleep(2000);
+
+    Arm.setVelocity(60, pct);
+    Arm.rotateTo(60,deg,false);
+    Tray.setVelocity(50, pct);
+    Tray.rotateTo(150,degrees, true);
+    wait(0.5, seconds);
+    Tray.setVelocity(100, pct);
+    Tray.rotateTo(0,degrees, false);
+    //arm_level = 1;
+    Arm.setVelocity(100, pct);
+    Arm.rotateTo(30,deg,true);
+    //put down tray and arm
+//    Arm.setVelocity(60, pct);
+//    Arm.rotateTo(0,deg,false);
+    Intake.stop();
+//    Arm.rotateTo(12,deg,false).
+    //turn on intake
+    task::sleep(200);
+    Intake.setVelocity(100, pct);
+    Intake.spin(directionType::fwd);
+
+    //move forward at half power
+    Drivetrain.setDriveVelocity(25, pct );
+    Drivetrain.turnToHeading(0, rotationUnits::deg,true);
+    task::sleep(100);
+    Drivetrain.driveFor( 2530, mm ,true);
+    //slow down for last 300mm
+    Intake.setVelocity(30,pct);
+    Drivetrain.setDriveVelocity(15, pct);
+    Drivetrain.driveFor(300,mm,true);
+    
+    //rotate to corner
+    Drivetrain.setTurnVelocity(15,pct);
+    Intake.setVelocity(8,pct);
+    Drivetrain.turnToHeading(35,rotationUnits::deg,true);
+
+    
+    //drive towards first corner
+    Drivetrain.setDriveVelocity(30,pct);
+    Drivetrain.driveFor(360,mm,true);
+    //intake reverse
+    Intake.setVelocity(10,pct);
+    Intake.spin(reverse);
+
+
+    
+    //push tray
+    Tray.setVelocity(50, pct);
+    Tray.rotateTo(300,degrees, true);
+    Intake.stop();
+    Tray.rotateTo(900,degrees, true);    
+    //move forward
+    Drivetrain.setDriveVelocity(10, pct );
+    
+    Drivetrain.driveFor( 20, mm,false );
+    task::sleep(500);
+    //put tray
+    Tray.setVelocity(80, pct);
+    Tray.rotateTo(0,degrees, false);
+    
+    //move back
+    Drivetrain.setDriveVelocity(30, pct );
+    Drivetrain.driveFor( -280, mm );
+    Intake.stop();
+    Intake.setVelocity(50, pct);
+    //turn to next tower
+    arm_level = 1;
+    
+    Drivetrain.setTurnVelocity(13,pct);
+    Drivetrain.turnToHeading(279,rotationUnits::deg,true);
+
+    //intake
+    Intake.spin(directionType::fwd);
+    Drivetrain.driveFor(800,mm,true);
+    Intake.stop();
+
+    //move back
+    //
+    Drivetrain.setDriveVelocity(30, pct );
+    Drivetrain.driveFor( -230, mm,true );
+
+    //
+    arm_level=3;
+    task::sleep(1500);
+    //
+    Drivetrain.setDriveVelocity(30, pct );
+    Drivetrain.driveFor( 140, mm, true);
+
+    //put into first tower and move back
+    
+    Intake.setVelocity(40, pct);
+    Intake.spin(directionType::rev);
+    task::sleep(1000);
+    Intake.stop();
+    Drivetrain.driveFor(-380,mm);
+    //
+    arm_level=1;
+    task::sleep(500);
+
+
+    //turn left to next tower
+    Drivetrain.setTurnVelocity(20,pct);
+    Drivetrain.turnToHeading(188,rotationUnits::deg);
+    Intake.setVelocity(60,pct);
+    Intake.spin(directionType::fwd);
+
+    //drive
+    Drivetrain.setDriveVelocity(30, pct );
+    Drivetrain.driveFor( 698, mm ,true);
+    Intake.stop();
+    
+    //drive back
+    Drivetrain.driveFor(-260,  mm, true);
+    arm_level = 2;
+    task::sleep(1000);
+    Drivetrain.driveFor(200,mm,true);
+    //outake
+    Intake.setVelocity(60, pct);
+    Intake.spin(directionType::rev);
+    task::sleep(1000);
+    //drive back and turn to next cube tower
+    Intake.stop();
+    Drivetrain.setDriveVelocity(20,pct);
+    Drivetrain.driveFor(-200,mm,true);
+    arm_level = 1;
+    Drivetrain.turnToHeading(145, rotationUnits::deg);
+    
+    //Drive forward slowly to pick up cube
+    Drivetrain.setDriveVelocity(25,pct);
+    Intake.setVelocity(60,pct);
+    Intake.spin(forward);
+    Drivetrain.driveFor(670,mm,true);
+    Intake.stop();
+    //move back
+    Drivetrain.driveFor(-230,mm,true);
+    //turn to tower
+    arm_level=2;
+    Drivetrain.turnToHeading(49,rotationUnits::deg);
+
+    //Drive forward
+
+    Drivetrain.driveFor(320,mm,true);
+
+    //put in tower
+    Intake.setVelocity(60, pct);
+    Intake.spin(directionType::rev);
+    task::sleep(1000);
+    Intake.stop();
+
+    //go to final tower and pickup cubes on the way
+    Drivetrain.setTurnVelocity(13,pct);
+    Drivetrain.turnToHeading(280,rotationUnits::deg);
+    arm_level = 1;
+    task::sleep(700);
+    Drivetrain.setDriveVelocity(50,pct);
+    Intake.setVelocity(100,pct);
+    Intake.spin(fwd);
+    Drivetrain.driveFor(1720,mm,true);
+
+    //turn to tower
+    Intake.setVelocity(30,pct);
+    Intake.spin(reverse);
+    task::sleep(500);
+    Intake.stop();
+    arm_level = 2;
+    task::sleep(500);
+    Drivetrain.turnToHeading(250,rotationUnits::deg);
+    //Drive to tower 
+    Drivetrain.setDriveVelocity(60,pct);
+    Drivetrain.driveFor(200,mm,true);
+    //put in tower
+    
+    Intake.setVelocity(60,pct);
+    Intake.spin(reverse);
+    task::sleep(500);
+    Intake.stop();
+
+
+
+
+}
+© 2020 GitHub, Inc.
